@@ -11,6 +11,19 @@ def home():
 def about():
     return render_template('about.html')
 
+@app.route('/text', methods=["POST"])
+def my_form_post():
+    text = request.form['text']
+    processed_text = text.upper()
+    with open("test1.txt", "a") as fo:
+        fo.write("\n"+processed_text)
+        fo.close()
+    with open("test1.txt") as fo:
+        read_text=fo.read()
+        fo.close()
+
+    return render_template("home.html", Text = read_text)
+
 @app.route('/button', methods=["GET", "POST"])
 def button():
     if request.method == "GET":
