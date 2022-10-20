@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+  <div class="home">
+    <h1>A Python product</h1>
+    <p>This website was built with Python via the Flask framework.</p>
+  </div>
+<p></p>
+<div class="button">
+    <form action="/button" method="get"> <!-- or method="post" -->
+        <input type="submit" value="Click Me" >
+    </form>
+    <p></p>
+  {{ ButtonPressed }}
+</div>
+{% endblock %}
