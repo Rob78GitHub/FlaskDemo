@@ -15,8 +15,6 @@ def about():
 def button():
     if request.method == "GET":
         global Button
-
-
         if Button==0:
          f = open("Static/test.txt", "r")
          txt=f.read()
@@ -26,12 +24,8 @@ def button():
             Button==1
             txt=""
             Button=0
-
-
         return render_template("home.html", ButtonPressed = txt)
     return redirect(url_for('button'))
-
-
 
 if __name__ == '__main__':
     app.run()
