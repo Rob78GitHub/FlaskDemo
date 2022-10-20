@@ -27,6 +27,7 @@ def button():
             txt=""
             Button=0
 
+
         return render_template("home.html", ButtonPressed = txt)
     return redirect(url_for('button'))
 
