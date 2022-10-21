@@ -4,9 +4,18 @@ app = Flask(__name__)
 global Button
 Button= 0
 
+with open("test1.txt") as fo:
+    read_text = fo.read()
+    fo.close()
+
+
 @app.route('/')
 def home():
-    return render_template('home.html')
+    with open("test1.txt") as fo:
+        read_text = fo.read()
+        fo.close()
+    return render_template('home.html', Text = read_text)
+
 @app.route('/about/')
 def about():
     return render_template('about.html')
@@ -37,7 +46,7 @@ def button():
             Button==1
             txt=""
             Button=0
-        return render_template("home.html", ButtonPressed = txt)
+        return render_template("home.html", ButtonPressed = txt, Text = read_text)
     return redirect(url_for('button'))
 
 if __name__ == '__main__':
