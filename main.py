@@ -1,5 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for
 
+import plotly.express as px
+
+import plotly.express as px
+df = px.data.gapminder().query("continent == 'Oceania'")
+fig = px.line(df, x='year', y='lifeExp', color='country', markers=True)
+#fig.show()
+fig.write_html("Templates\plot.html")
+
 app = Flask(__name__)
 global Button
 Button= 0
@@ -15,7 +23,6 @@ def home():
         read_text = fo.read()
         fo.close()
     return render_template('home.html', Text = read_text)
-
 @app.route('/about/')
 def about():
     return render_template('about.html')
@@ -31,23 +38,30 @@ def my_form_post():
         read_text=fo.read()
         fo.close()
 
-    return render_template("home.html", Text = read_text)
+    return render_template("home.html", Text = read_text, ButtonPressed=0)
 
-@app.route('/button', methods=["GET", "POST"])
-def button():
-    if request.method == "GET":
-        global Button
-        if Button==0:
-         f = open("Static/test.txt", "r")
-         txt=f.read()
-         f.close()
-         Button=1
+
+@app.route("/button", methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        if request.form.get('action1') == 'VALUE1':
+            pass
+            ButtNumber="Button1 pressed"
+            fig.show()
+        elif request.form.get('action2') == 'VALUE2':
+            pass
+            ButtNumber="Button2 pressed"
+        elif request.form.get('action3') == 'VALUE3':
+            pass
+            ButtNumber = "Button3 pressed"
         else:
-            Button==1
-            txt=""
-            Button=0
-        return render_template("home.html", ButtonPressed = txt, Text = read_text)
-    return redirect(url_for('button'))
+            pass  # unknown
+    elif request.method == 'GET':
+        return render_template('home.html', form=form)
+
+    return render_template('home.html', Text = read_text, ButtonPressed=ButtNumber)
+
+
 
 if __name__ == '__main__':
     app.run()

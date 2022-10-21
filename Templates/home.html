@@ -5,13 +5,13 @@
     <p>This website was built with Python via the Flask framework.</p>
   </div>
 <p></p>
-
 <div class="button">
-    <form action="/button" method="get"> <!-- or method="post" -->
-          <input type="submit" value="Click Me" >
+  <form method="post" action="/button">
+        <input type="submit" value="VALUE1" name="action1"/>
+        <input type="submit" value="VALUE2" name="action2" />
+        <input type="submit" value="VALUE3" name="action3" />
     </form>
 </div>
-
 <div class="text1">
     <p></p>
   {{ ButtonPressed }}
@@ -27,14 +27,17 @@
 </form>
  </div>
     <p></p>
+<div class="plotly">
 
 
-<div class="home">
-    <h1>Dateiinhalt</h1>
 
-    {{ Text }}
+{% include 'plot.html' %}
+
 </div>
 
 
 
+
 {% endblock %}
+
+
