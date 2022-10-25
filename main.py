@@ -2,6 +2,17 @@ from flask import Flask, render_template, request, redirect, url_for
 
 import plotly.express as px
 
+import mysql.connector
+connection = mysql.connector.connect(host='localhost', database='robtest', user='robert', password='robert')
+if connection.is_connected(): print("Connection Successfully")
+
+mycursor=connection.cursor()
+mycursor.execute('SELECT * FROM robtest.telefon')
+users=mycursor.fetchall()
+for user in users:
+    print(user)
+
+
 import plotly.express as px
 df = px.data.gapminder().query("continent == 'Oceania'")
 fig = px.line(df, x='year', y='lifeExp', color='country', markers=True)
@@ -53,7 +64,10 @@ def index():
             ButtNumber="Button2 pressed"
         elif request.form.get('action3') == 'VALUE3':
             pass
-            ButtNumber = "Button3 pressed"
+            ButtNumber=""
+            for user in users:
+                ButtNumber=ButtNumber+str(user)
+            #ButtNumber = "Button3 pressed"
         else:
             pass  # unknown
     elif request.method == 'GET':
